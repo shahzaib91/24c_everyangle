@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('media_files', function (Blueprint $table) {
             $table->id();
+            $table->string('file_name');
+            $table->integer('file_owner');
+            $table->integer('file_cat');
             $table->timestamps();
         });
     }
