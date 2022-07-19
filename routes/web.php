@@ -19,7 +19,7 @@ use \App\Http\Controllers\GetPostHandler;
  * General routes for views
  */
 Route::get('/', [ViewsHandler::class, 'login']);
-Route::get('/do-login', [ViewsHandler::class, 'do_login']);
+Route::post('/do-login', [ViewsHandler::class, 'do_login']);
 Route::get('/logout', [ViewsHandler::class, 'logout']);
 Route::get('/{module}/{view}',[ViewsHandler::class, 'loadView'])->middleware('auth');
 Route::get('/{module}/{view}/{id}',[ViewsHandler::class, 'loadView'])->middleware('auth');
