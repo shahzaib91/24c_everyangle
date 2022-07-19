@@ -14,7 +14,6 @@
     <!-- Style-->
     <link rel="stylesheet" href="{{ URL::asset('public/') }}/css/style.css">
     <link rel="stylesheet" href="{{ URL::asset('public/') }}/css/skin_color.css">
-    @laravelPWA
 </head>
 <body class="hold-transition theme-primary bg-img" style="background-image: url(../images/auth-bg/bg-4.jpg)">
 
