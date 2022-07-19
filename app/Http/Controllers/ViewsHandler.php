@@ -78,6 +78,22 @@ class ViewsHandler extends Controller
         $current_module = strtolower($current_module);
         $current_view   = strtolower($current_view);
 
+        // data collector class check within module
+        // since we are using dynamic view logic we need some data adapter which will be passed to view when the form is being edit and
+        // this should be module based this is where DataCollector becomes handy
+        $class  = 'DataCollector';
+        $path   = base_path()."/resources/views/".$current_module."/dispatcher/".$class.".php";
+        $linker = null;
+        if(file_exists($path))
+        {
+            include_once $path;
+            if(class_exists($class))
+            {
+                $class      = new $class();
+                $linker     = $class->pre_process($id, $current_module, $current_view);
+            }
+        }
+
         // check if dynamic view being accessed is exists
         if(view()->exists($current_module.".".$current_view))
         {
@@ -86,7 +102,8 @@ class ViewsHandler extends Controller
                 $current_module.'.'.$current_view,
                 [
                     'current_module'    =>  $current_module,
-                    'current_view'      =>  $current_view
+                    'current_view'      =>  $current_view,
+                    'data'              =>  $linker // assume this has required data if no data it will null
                 ]
             );
         }
