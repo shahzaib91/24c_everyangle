@@ -38,7 +38,7 @@
                             -->
                             <form
                                     class="tdiojax-form"
-                                    action="{{URL::to("/post/login")}}"
+                                    action="{{URL::to("/do-login")}}"
                                     method="post"
                                     data-error-container=""
                                     data-success-redirect=""
