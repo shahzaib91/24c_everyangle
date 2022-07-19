@@ -81,7 +81,7 @@ class ViewsHandler extends Controller
         // data collector class check within module
         // since we are using dynamic view logic we need some data adapter which will be passed to view when the form is being edit and
         // this should be module based this is where DataCollector becomes handy
-        $class  = 'DataCollector';
+        $class  = 'ModuleDataCollector';
         $path   = base_path()."/resources/views/".$current_module."/dispatcher/".$class.".php";
         $linker = null;
         if(file_exists($path))
