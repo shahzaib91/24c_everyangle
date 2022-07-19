@@ -15,5 +15,7 @@ use \App\Http\Controllers\ViewsHandler;
 */
 
 Route::get('/', [ViewsHandler::class, 'login']);
+Route::get('/do-login', [ViewsHandler::class, 'do_login']);
+Route::get('/logout', [ViewsHandler::class, 'logout']);
 Route::get('/{module}/{view}',[ViewsHandler::class, 'loadView'])->middleware('auth');
 Route::get('/{module}/{view}/{id}',[ViewsHandler::class, 'loadView'])->middleware('auth');
