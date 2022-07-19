@@ -113,7 +113,7 @@
 
         $(document).ready(function()
         {
-            //$('#global_loader').css('display','flex');
+            $('#global_loader').css('display','flex');
             getDataTableData();
             $('body').on('click','.btn-edit',function()
             {
