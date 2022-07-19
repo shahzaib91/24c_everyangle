@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Categories;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
@@ -58,5 +56,89 @@ class GetPostHandler extends Controller
 
         // execute function
         return call_user_func_array([$this,$func],[$id]);
+    }
+
+    /**
+     * -----------------------------------------------
+     * Category modules functions are written below
+     * -----------------------------------------------
+     */
+    public function categoryEdit(Request $request)
+    {
+        // prepare validation rules and labels
+        $rules['cat_name']              =   "required|max:191";
+        $rules['id']                    =   "required|numeric";
+        $attr['cat_name']               =   "Category Name";
+        $attr['id']                     =   "Identity";
+
+        // let's check whether data is being added or updated and delete id key from validation
+        $isbeingupdate                  =   true;
+        if($request->id=="")
+        {
+            unset($rules['id']);
+            $isbeingupdate              =   false;
+        }
+
+        // run validation and grab errors
+        $validateData = Validator::make($request->all(), $rules,[],$attr);// $this->validate($request, $rules, [], $attr);
+        if($validateData->fails())
+        {
+            $errors = array();
+            foreach($validateData->errors()->messages() as $field=>$eMsgs)
+            {
+                for($i=0; $i<count($eMsgs); $i++)
+                {
+                    $errors[] = $eMsgs[$i];
+                }
+            }
+            // check if validation failed
+            if($validateData)
+            {
+                return response()->json( ['status'=>false, 'errors'=>$errors, 'message'=>"One or more validation error(s) occured!"]);
+            }
+        }
+
+        // if arrived here means validation is passed let's create or update data accordingly
+        if($isbeingupdate){
+            Categories::__update($request);
+        } else {
+            Categories::__create($request);
+        }
+
+        // return final response
+        return response()->json(['status'=>true, 'errors'=>[], 'message'=>"Record has been saved!", "redirect"=>""]);
+    }
+
+    public function categoryList()
+    {
+        // let's prepare datatable accepted format
+        $data       = ["data"=>[]];
+
+        // query
+        $dt         = Categories::where('cat_owner',Auth::user()->id)->get();
+
+        // loop through data
+        for($i=0; $i<count($dt); $i++)
+        {
+            $a = 0;
+            $data['data'][$i][$a] = $dt[$i]->id;
+            $a++;
+            $data['data'][$i][$a] = $dt[$i]->cat_name;
+            $a++;
+            $data['data'][$i][$a] = Carbon::parse($dt[$i]->created_at)->diffForHumans();
+            $a++;
+            $data['data'][$i][$a] = ($dt[$i]->assocItems ? number_format($dt[$i]->assocItems->total) : 0);
+            $a++;
+            $data['data'][$i][$a] = '<a title="Edit" data-id="'.$dt[$i]->id.'" data-name="'.$dt[$i]->cat_name.'" data-toggle="modal" data-target="#modal-edit" data-backdrop="static" data-keyboard="false" href="javascript:void(0)" class="btn-edit"><i class="fa fa-edit fa-2x"></i></a>&nbsp;&nbsp;';
+            $data['data'][$i][$a] .= '<a title="Delete" data-post="getDataTableData" class="btn_remove" href="javascript:void(0)" data-href="'.URL::to('/api/categoryRemove/'.base64_encode($dt[$i]->id)).'"><i class="fa fa-trash-o fa-2x"></i></a>';
+        }
+        return response()->json($data);
+
+    }
+
+    public function categoryRemove($id)
+    {
+        $id = base64_decode($id);
+        return response()->json(Categories::__delete($id));
     }
 }

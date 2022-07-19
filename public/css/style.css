@@ -1,5 +1,5 @@
 /*
-Template Name: Adminto - Responsive Admin Template 
+Template Name: Adminto - Responsive Admin Template
 Author: Multipurpose Themes
 File: scss
 */
@@ -1042,7 +1042,7 @@ hr {
   left: 0; }
 
 /*******************
-Padding property 
+Padding property
 *******************/
 .p-0 {
   padding: 0px !important; }
@@ -3943,7 +3943,7 @@ Padding property
     padding-top: 100px !important;
     padding-bottom: 100px !important; } }
 /*******************
-Margin property 
+Margin property
 *******************/
 .m-0 {
   margin: 0px !important; }
@@ -6844,7 +6844,7 @@ Margin property
     margin-top: 100px !important;
     margin-bottom: 100px !important; } }
 /*******************
-Width property 
+Width property
 *******************/
 .w-0 {
   width: 0px !important; }
@@ -9223,7 +9223,7 @@ Width property
   .max-w-lg-auto {
     max-width: auto; } }
 /*******************
-Height property 
+Height property
 *******************/
 .h-0 {
   height: 0px !important; }
@@ -24044,4 +24044,8 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
   padding-bottom: 50px;
 }
 
+.dataTables_filter label
+{
+    margin-right: -10px !important;
+}
 

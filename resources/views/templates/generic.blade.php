@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="{{ URL::asset('public/') }}/css/horizontal-menu.css">
     <link rel="stylesheet" href="{{ URL::asset('public/') }}/css/style.css">
     <link rel="stylesheet" href="{{ URL::asset('public/') }}/css/skin_color.css">
-
-    {{--@laravelPWA--}}
 </head>
 
 <body class="layout-top-nav light-skin theme-primary">
