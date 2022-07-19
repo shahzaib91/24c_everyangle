@@ -120,6 +120,11 @@
                 $('input[name="id"]').val($(this).data("id"));
                 $('input[name="cat_name"]').val($(this).data("name"));
             });
+
+            $('#modal-edit').on('hidden.bs.modal', function () {
+                $('input[name="id"]').val("");
+                $('input[name="cat_name"]').val("");
+            });
         });
 
         function getDataTableData()
