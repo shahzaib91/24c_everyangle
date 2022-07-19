@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 /**
@@ -22,6 +24,30 @@ class ViewsHandler extends Controller
             return redirect("/dashboard/view");
         }
         return view('login');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * Login action function
+     */
+    public function do_login(Request $request)
+    {
+        // call auth
+        $auth_result = Auth::attempt
+        ([
+            "email"    =>  $request->email,
+            "password"  =>  $request->password
+        ]);
+
+        // when success
+        if($auth_result)
+        {
+            return response()->json(["status"=>true,"message"=>"success","errors"=>[],"redirect"=>URL::to("/dashboard/view")]);
+        }
+
+        // when failed
+        return response()->json(["status"=>false,"message"=>"Incorrect e-mail address or password!","errors"=>[],"redirect"=>""]);
     }
 
     /*
