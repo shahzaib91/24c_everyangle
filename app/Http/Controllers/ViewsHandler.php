@@ -27,9 +27,9 @@ class ViewsHandler extends Controller
     }
 
     /**
+     * Login action function
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * Login action function
      */
     public function do_login(Request $request)
     {
@@ -60,11 +60,11 @@ class ViewsHandler extends Controller
     }
 
     /**
+     * This is our dynamic view loader function
      * @param $current_module
      * @param $current_view
      * @param null $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * This is our dynamic view loader function
      */
     public function loadView($current_module, $current_view, $id = null)
     {
