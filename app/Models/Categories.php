@@ -42,7 +42,7 @@ class Categories extends Model
         {
             $obj->delete();
         }
-        return ['status'=>true, 'errors'=>[], 'message'=>"Record has been trashed!", "redirect"=>URL::to('categories/list')];
+        return ['status'=>true, 'errors'=>[], 'message'=>"Record has been trashed!"];
     }
 
     // associated item relation function
