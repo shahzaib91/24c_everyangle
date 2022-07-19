@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\ViewsHandler;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ViewsHandler::class, 'login']);
+Route::get('/{module}/{view}',[ViewsHandler::class, 'loadView'])->middleware('auth');
+Route::get('/{module}/{view}/{id}',[ViewsHandler::class, 'loadView'])->middleware('auth');
